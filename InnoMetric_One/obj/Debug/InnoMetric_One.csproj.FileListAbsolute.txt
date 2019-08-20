@@ -1,0 +1,11 @@
+C:\Users\Administrator\Documents\ProjectFolders\InnoMetric_One\obj\Debug\InnoMetric_One.csprojAssemblyReference.cache
+C:\Users\Administrator\Documents\ProjectFolders\InnoMetric_One\obj\Debug\InnoMetric_One.Properties.Resources.resources
+C:\Users\Administrator\Documents\ProjectFolders\InnoMetric_One\obj\Debug\InnoMetric_One.csproj.GenerateResource.cache
+C:\Users\Administrator\Documents\ProjectFolders\InnoMetric_One\obj\Debug\InnoMetric_One.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\ProjectFolders\InnoMetric_One\obj\Debug\InnoMetric_One.InnoMetricsCollector.resources
+C:\Users\Administrator\Documents\ProjectFolders\InnoMetric_One\bin\Debug\InnoMetric_One.exe.config
+C:\Users\Administrator\Documents\ProjectFolders\InnoMetric_One\bin\Debug\InnoMetric_One.exe
+C:\Users\Administrator\Documents\ProjectFolders\InnoMetric_One\bin\Debug\InnoMetric_One.pdb
+C:\Users\Administrator\Documents\ProjectFolders\InnoMetric_One\obj\Debug\InnoMetric_One.exe
+C:\Users\Administrator\Documents\ProjectFolders\InnoMetric_One\obj\Debug\InnoMetric_One.pdb
+C:\Users\Administrator\Documents\ProjectFolders\InnoMetric_One\obj\Debug\InnoMetric_One.LoginForm.resources
