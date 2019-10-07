@@ -1,0 +1,10 @@
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\obj\Debug\SystemInfo.csprojAssemblyReference.cache
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\obj\Debug\Sandbox.Form1.resources
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\obj\Debug\SystemInfo.Properties.Resources.resources
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\obj\Debug\SystemInfo.csproj.GenerateResource.cache
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\obj\Debug\SystemInfo.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\bin\Debug\SystemInfo.exe.config
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\bin\Debug\SystemInfo.exe
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\bin\Debug\SystemInfo.pdb
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\obj\Debug\SystemInfo.exe
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\obj\Debug\SystemInfo.pdb
