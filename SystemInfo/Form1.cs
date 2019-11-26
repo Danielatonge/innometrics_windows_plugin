@@ -21,6 +21,7 @@ namespace SystemInfo
         public static List<DataLine> listData;
         WinEventDelegate dele = null;
         DateTime begin_time;
+        LoginForm myForm;
         public Form1()
         {
             InitializeComponent();
@@ -28,6 +29,20 @@ namespace SystemInfo
             begin_time = DateTime.Now;
             dele = new WinEventDelegate(WinEventProc);
             IntPtr m_hhook = SetWinEventHook(EVENT_SYSTEM_FOREGROUND, EVENT_SYSTEM_FOREGROUND, IntPtr.Zero, dele, 0, 0, WINEVENT_OUTOFCONTEXT);
+
+            //Check for Automatic updates on windows
+            //WebClient webClient = new WebClient();
+            //if (webClient.DownloadString().Contains())
+            //{
+            //    if (MessageBox.Show("Looks like there is an available update, would you like to download it?", "program name",
+            //        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            //    {
+            //        System.Diagnostics.Process.Start("we ");
+            //    } else
+            //    {
+
+            //    }
+            //}
         }
 
         public void WinEventProc(IntPtr hWinEventHook, uint eventType, IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
@@ -40,16 +55,16 @@ namespace SystemInfo
             GetWindowThreadProcessId(GetWindow(GetForegroundWindow(), 3), out process_id);
             foreach (DataLine item in listData)
             {
-                if(item.ProcessId == process_id.ToString() && item.ProcessStatus == "App Focus")
+                if(item.ProcessId == process_id.ToString() && item.Status == "App Focus")
                 {
-                    TimeSpan dt = DateTime.Now.Subtract(begin_time).Subtract(TimeSpan.Parse(item.end_time)); 
-                    item.end_time = dt.Add(TimeSpan.Parse(item.end_time)).ToString();   //"previous endtime" + "New end time since application just went idle"
+                    TimeSpan dt = DateTime.Now.Subtract(begin_time).Subtract(TimeSpan.Parse(item.EndTime)); 
+                    item.EndTime = dt.Add(TimeSpan.Parse(item.EndTime)).ToString();   //"previous endtime" + "New end time since application just went idle"
                 }
 
-                if(item.ProcessId != process_id.ToString() && item.ProcessStatus == "Idle")
+                if(item.ProcessId != process_id.ToString() && item.Status == "Idle")
                 {
-                    TimeSpan dt = DateTime.Now.Subtract(begin_time).Subtract(TimeSpan.Parse(item.end_time));
-                    item.end_time = dt.Add(TimeSpan.Parse(item.end_time)).ToString(); //"previous endtime" + "New end time since application just went idle"
+                    TimeSpan dt = DateTime.Now.Subtract(begin_time).Subtract(TimeSpan.Parse(item.EndTime));
+                    item.EndTime = dt.Add(TimeSpan.Parse(item.EndTime)).ToString(); //"previous endtime" + "New end time since application just went idle"
                 }
             }
             
@@ -58,18 +73,19 @@ namespace SystemInfo
 
         private void updateView()
         {
-            foreach (DataLine item in listData)
+            List<DataLine> newListData = SqliteDataAccess.LoadCollectedData();
+            foreach (DataLine item in newListData)
             {
                 string[] input =
                 {
                     item.ProcessName,
                     item.ProcessId,
-                    item.ProcessStatus,
-                    item.start_time,
-                    item.end_time,
-                    item.ip_address,
-                    item.mac_address,
-                    item.description
+                    item.Status,
+                    item.StartTime,
+                    item.EndTime,
+                    item.IPAddress,
+                    item.MacAddress,
+                    item.Description
                 };
                 ListViewItem line = new ListViewItem(input);
                 MetricView.Items.Add(line);
@@ -157,7 +173,7 @@ namespace SystemInfo
                 
                 if (!hSet.Contains(new Tuple<String, String>(process.Id.ToString(), status)))
                 {
-                    listData.Add(new DataLine(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]));
+                    SqliteDataAccess.SaveDataLine(new DataLine(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]));
                     hSet.Add(new Tuple<String, String>(process.Id.ToString(), status));
                     //MetricView.Items.Add(item);
                 }
@@ -239,19 +255,16 @@ namespace SystemInfo
             renderProcessesOnListView();
         }
 
-        public static void sendToServer(string token)
+        public void sendToServer(string token)
         {
             foreach(DataLine item in listData)
             {
                 string activity = item.ProcessId;
-                string start = item.start_time;
-                string end = item.end_time;
+                string start = item.StartTime;
+                string end = item.EndTime;
                 string name = item.ProcessName;
-                string ip_address = item.ip_address;
-                string mac = item.mac_address;
-                //string data = $"activity={activity}&start_time={start}&end_time={end}&executable_name={name}&ip_address={ip_address}&mac_address={mac}";
-                //MyWebRequest myRequest = new MyWebRequest("https://innometric.guru:8120/activity", "POST", data);
-                //MessageBox.Show(myRequest.GetResponseUnknown());
+                string ip_address = item.IPAddress;
+                string mac = item.MacAddress;
 
                 var client = new RestClient("https://innometric.guru:8120");
                 var login = new RestRequest("https://innometric.guru:8120/activity", Method.POST);
@@ -279,50 +292,26 @@ namespace SystemInfo
                 //MessageBox.Show(message);
             }
             MessageBox.Show("Transfer Completed");
+            hSet.Clear();
+            MetricView.Items.Clear();
         }
         private void Button1_Click(object sender, EventArgs e)
         {
-            Form myForm = new LoginForm();
+            myForm = new LoginForm();
             myForm.Show();
         }
 
-
-
-    }
-
-    public class DataLine
-    {
-        // key properties
-        public String ProcessName { get; set; }
-        public String ProcessId { get; set; }
-        public String ProcessStatus { get; set; }
-        public String start_time;
-        public String end_time;
-        public String mac_address;
-        public String ip_address;
-        public String description;
-
-        public DataLine(String processName, String processId, String processStatus)
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ProcessName = processName;
-            ProcessId = processId;
-            ProcessStatus = processStatus;
+            if (MessageBox.Show("Do you want to quit InnoMetrics Collector?", "Collector", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                if (myForm != null)
+                {
+                    sendToServer(myForm.secret_token);
+                }
+                
+            }
         }
-
-        public DataLine(String processName, String processId, String processStatus, String stime, String etime)
-            : this(processName, processId, processStatus)
-        {
-            start_time = stime;
-            end_time = etime;
-        }
-
-        public DataLine(String processName, String processId, String processStatus, String stime, String etime,
-            String Ip_address, String Mac_address, String Description)
-            : this(processName, processId, processStatus, stime, etime)
-        {
-            ip_address = Ip_address;
-            mac_address = Mac_address;
-            description = Description;
-        }
+        
     }
 }

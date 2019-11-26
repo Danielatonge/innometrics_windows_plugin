@@ -7,7 +7,7 @@ namespace SystemInfo
 {
     public partial class LoginForm : Form
     {
-        string secret_token;
+        public string secret_token;
         public LoginForm()
         {
             InitializeComponent();
@@ -45,46 +45,7 @@ namespace SystemInfo
             //define local variables from the user inputs 
             string email = txtemail.Text;
             string password = txtpassword.Text;
-            //var login = new Login(email, password);
-            //if(IsLoggedIn(email, password))
-            //{
-            //    string data = $"email={email}&password={password}";
-            //    MyWebRequest myRequest = new MyWebRequest("https://innometric.guru:8120/login", "POST", data);
-            //    MessageBox.Show(myRequest.GetResponseUnknown());
-            //}
-
-            //var request = new RestRequest("login/", Method.POST);
-            //var client = new RestClient("https://innometric.guru:8120/");
-            //request.XmlSerializer = new RestSharp.Serializers.XmlSerializer();
-            //request.RequestFormat = DataFormat.Json;
-            //request.AddXmlBody(login, "https://innometric.guru:8120");
-            //var response = client.Execute(request);
-            //MessageBox.Show(response.StatusCode.ToString());
-
-
-            //string strurl = String.Format("https://innometric.guru:8120/login");
-            //WebRequest requestObject = WebRequest.Create(strurl);
-            //requestObject.Credentials = new NetworkCredential(email, password);
-            //requestObject.Method = "GET";
-            //HttpWebResponse responseObject = null;
-            //try
-            //{
-            //    responseObject = (HttpWebResponse)requestObject.GetResponse();
-            //    string strresult = null;
-            //    using (Stream stream = responseObject.GetResponseStream())
-            //    {
-            //        StreamReader sr = new StreamReader(stream);
-            //        strresult = sr.ReadToEnd();
-            //        sr.Close();
-            //    }
-
-            //    MessageBox.Show(strresult);
-            //} catch (Exception err)
-            //{
-            //    MessageBox.Show(err.Message.ToString());
-            //}
-
-
+            
             var client = new RestClient("https://innometric.guru:8120");
             var login = new RestRequest("https://innometric.guru:8120/login", Method.POST);
             login.RequestFormat = DataFormat.Json;
@@ -98,7 +59,8 @@ namespace SystemInfo
             {
                 dynamic obj = JsonConvert.DeserializeObject(response.Content);
                 secret_token = obj.token;
-                Form1.sendToServer(secret_token);
+                Form1 newForm = new Form1();
+                newForm.sendToServer(secret_token);
             }
 
             

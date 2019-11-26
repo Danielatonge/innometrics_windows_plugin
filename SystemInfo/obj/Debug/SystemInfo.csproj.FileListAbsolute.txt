@@ -1,4 +1,3 @@
-C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\obj\Debug\SystemInfo.csprojAssemblyReference.cache
 C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\obj\Debug\SystemInfo.Properties.Resources.resources
 C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\obj\Debug\SystemInfo.csproj.GenerateResource.cache
 C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\obj\Debug\SystemInfo.csproj.CoreCompileInputs.cache
@@ -100,3 +99,10 @@ C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\bin\Debug\Syst
 C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\obj\Debug\SystemInfo.csproj.App.config
 C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\obj\Debug\SystemInfo.RegistrationForm.resources
 C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\obj\Debug\SystemInfo.csproj.CopyComplete
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\bin\Debug\CollectorDB.db
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\bin\Debug\Dapper.dll
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\bin\Debug\System.Data.SQLite.dll
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\bin\Debug\Dapper.xml
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\bin\Debug\System.Data.SQLite.xml
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\Administrator\Documents\ProjectFolders\csharp\SystemInfo\obj\Debug\SystemInfo.csprojAssemblyReference.cache
