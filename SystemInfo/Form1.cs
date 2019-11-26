@@ -267,7 +267,7 @@ namespace SystemInfo
                 string mac = item.MacAddress;
 
                 var client = new RestClient("https://innometric.guru:8120");
-                var login = new RestRequest("https://innometric.guru:8120/activity", Method.POST);
+                var login = new RestRequest("https://innometric.guru:8120/V1/activity", Method.POST);
                 login.RequestFormat = DataFormat.Json;
                 login.AddHeader("content-type", "application/json");
                 login.AddHeader("Authorization", token);
